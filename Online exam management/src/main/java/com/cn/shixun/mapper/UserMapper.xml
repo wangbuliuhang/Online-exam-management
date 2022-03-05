@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.shixun.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.cn.shixun.emtity.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="sno" jdbcType="VARCHAR" property="sno" />
+    <result column="admission_date" jdbcType="TIMESTAMP" property="admissionDate" />
+    <result column="faculty_id" jdbcType="INTEGER" property="facultyId" />
+    <result column="major_id" jdbcType="INTEGER" property="majorId" />
+    <result column="class_id" jdbcType="INTEGER" property="classId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, password, real_name, sex, sno, admission_date, faculty_id, major_id, 
+    class_id
+  </sql>
+
+  <!--
+这里自己写一个select标签
+id值是对应接口中的方法名
+parameterType(参数类型)这里是实体类(数字Interger)
+
+下面username前面的是数据库中的字段名后面的是传过来参数的实体类(对象)的属性名
+碰巧相同如果major_id那么java类中是驼峰命名法
+BaseResultMap是上面部分的id值，正是靠这个对应，才把数据库中的值塞到实体类中
+-->
+  <select id="list" parameterType="com.cn.shixun.common.JsGriData" resultMap="BaseResultMap">
+    SELECT * FROM user
+    <if test="queryParam != null">
+      WHERE username LIKE '%${queryParam}%'
+    </if>
+    LIMIT ${offset},${pageSize}
+  </select>
+
+  <select id="count" parameterType="com.cn.shixun.common.JsGriData" resultType="java.lang.Long">
+    SELECT count(id) FROM user
+    <if test="queryParam != null">
+      WHERE username LIKE '%${queryParam}%'
+    </if>
+  </select>
+  <select id="login" parameterType="com.cn.shixun.emtity.User" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from user
+    where username=#{username} and password=#{password}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.shixun.emtity.User">
+    insert into user (id, username, password, 
+      real_name, sex, sno, 
+      admission_date, faculty_id, major_id, 
+      class_id)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{sno,jdbcType=VARCHAR}, 
+      #{admissionDate,jdbcType=TIMESTAMP}, #{facultyId,jdbcType=INTEGER}, #{majorId,jdbcType=INTEGER}, 
+      #{classId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.shixun.emtity.User" useGeneratedKeys="true" keyProperty="id">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="sno != null">
+        sno,
+      </if>
+      <if test="admissionDate != null">
+        admission_date,
+      </if>
+      <if test="facultyId != null">
+        faculty_id,
+      </if>
+      <if test="majorId != null">
+        major_id,
+      </if>
+      <if test="classId != null">
+        class_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="sno != null">
+        #{sno,jdbcType=VARCHAR},
+      </if>
+      <if test="admissionDate != null">
+        #{admissionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="facultyId != null">
+        #{facultyId,jdbcType=INTEGER},
+      </if>
+      <if test="majorId != null">
+        #{majorId,jdbcType=INTEGER},
+      </if>
+      <if test="classId != null">
+        #{classId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.shixun.emtity.User">
+    update user
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="sno != null">
+        sno = #{sno,jdbcType=VARCHAR},
+      </if>
+      <if test="admissionDate != null">
+        admission_date = #{admissionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="facultyId != null">
+        faculty_id = #{facultyId,jdbcType=INTEGER},
+      </if>
+      <if test="majorId != null">
+        major_id = #{majorId,jdbcType=INTEGER},
+      </if>
+      <if test="classId != null">
+        class_id = #{classId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.shixun.emtity.User">
+    update user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      sno = #{sno,jdbcType=VARCHAR},
+      admission_date = #{admissionDate,jdbcType=TIMESTAMP},
+      faculty_id = #{facultyId,jdbcType=INTEGER},
+      major_id = #{majorId,jdbcType=INTEGER},
+      class_id = #{classId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

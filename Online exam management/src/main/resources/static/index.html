@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+<!--
+引用的js文件是有顺序的，被依赖的js要先引用
+a,b,c三个js，a中调用b,b调c
+则顺序为a,b,c
+-->
+    <script src="js/jquery-3.4.1.js"></script>
+    <script src="js/demo.js"></script>
+</head>
+<!--写一个原生js-->
+
+<body>
+
+<select onchange="test3();">
+    <option value="1">张三</option>
+    <option value="2">李四</option>
+    <option value="3">王五</option>
+</select>
+<select>
+    <option value="1">张三2</option>
+    <option value="2">李四2</option>
+    <option value="3">王五2</option>
+</select>
+
+
+
+<h1 id="h0">这是index页面!!!</h1>
+<!--文本框-->
+<input type="text">
+<!-- 密码框 -->
+<input type="password" value="123456"><br>
+<!-- 上传文件 -->
+<input type="file"><br>
+<!-- 隐藏域 -->
+<input type="hidden" value="1223"><br>
+<!-- 按钮 -->
+<input type="button" value="测试按钮" onclick="test();">
+<input type="button" value="jq测试按钮" onclick="test1();"><br>
+<input type="button" value="jq测试按钮1" onclick="test2();"><br>
+<input type="hidden" value="点击测试按钮"><br>
+
+<select onchange="test3();">
+    <option value="1">张三</option>
+    <option value="2">李四</option>
+    <option value="3">王五</option>
+</select>
+<br>
+<select style="display:none;">
+    <option value="1">张三1</option>
+    <option value="2">李四2</option>
+    <option value="3">王五3</option>
+</select>
+<br>
+
+<select id="s3">
+    <option value="0">--请选择--</option>
+</select>
+<br>
+
+
+
+
+<!-- 单选钮 -->
+<input type="radio" name="r0" checked>男<input type="radio" name="r0">女<br>
+<!-- 复选框 -->
+<input type="checkbox" name="c0" checked>篮球<input type="checkbox" name="c0">台球<br>
+<input type="checkbox" name="c0" checked>篮球1<input type="checkbox" name="c0">台球1<br>
+<!-- 表格 -->
+<table id="tab0">
+    <!--行-->
+    <tr id="tr0">
+        <!--列-->
+        <td class="t0">姓名</td>
+        <td class="t0">性别</td>
+        <td class="t1">年龄</td>
+    </tr>
+    <tr>
+        <!--列-->
+        <td>张三<input type="text"><br></td>
+        <td>男</td>
+        <td>11</td>
+    </tr>
+    <tr>
+        <!--列-->
+        <!--自定义属性值-->
+        <td abc="test">李四</td>
+        <td>女</td>
+        <td>12</td>
+    </tr>
+    <tr>
+        <!--列-->
+        <td>王五</td>
+        <td>男</td>
+        <td>13</td>
+    </tr>
+</table>
+<div>div</div>
+<span>span</span>
+<div id="d0">
+    div_1
+    <div>
+        div_1_1
+        <div>
+            div_1_1_1
+        </div>
+    </div>
+    <div>
+        div_1_2
+        <div>
+            div_1_2_1
+        </div>
+        <div>
+            div_1_2_2
+        </div>
+    </div>
+</div>
+<input type="button" value="作业测试按钮" onclick="test4();">
+
+</body>
+</html>

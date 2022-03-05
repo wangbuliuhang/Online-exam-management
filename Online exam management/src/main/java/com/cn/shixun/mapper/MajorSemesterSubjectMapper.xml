@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.shixun.mapper.MajorSemesterSubjectMapper">
+  <resultMap id="BaseResultMap" type="com.cn.shixun.emtity.MajorSemesterSubject">
+    <id column="major_semester_id" jdbcType="INTEGER" property="majorSemesterId" />
+    <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    major_semester_id, subject_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from major_semester_subject
+    where major_semester_id = #{majorSemesterId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from major_semester_subject
+    where major_semester_id = #{majorSemesterId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.shixun.emtity.MajorSemesterSubject">
+    insert into major_semester_subject (major_semester_id, subject_id)
+    values (#{majorSemesterId,jdbcType=INTEGER}, #{subjectId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.shixun.emtity.MajorSemesterSubject">
+    insert into major_semester_subject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="majorSemesterId != null">
+        major_semester_id,
+      </if>
+      <if test="subjectId != null">
+        subject_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="majorSemesterId != null">
+        #{majorSemesterId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.shixun.emtity.MajorSemesterSubject">
+    update major_semester_subject
+    <set>
+      <if test="subjectId != null">
+        subject_id = #{subjectId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where major_semester_id = #{majorSemesterId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.shixun.emtity.MajorSemesterSubject">
+    update major_semester_subject
+    set subject_id = #{subjectId,jdbcType=INTEGER}
+    where major_semester_id = #{majorSemesterId,jdbcType=INTEGER}
+  </update>
+</mapper>
